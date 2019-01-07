@@ -1,7 +1,17 @@
 var db = require("../models");
 var isAuthenticated = require("../config/middleware/isAuthenticated");
 module.exports = function(app) {
-  // Load index page
+  // Load signup page
+  app.get("/", function(req, res) {
+    res.render("signup");
+  });
+
+  // Load login page
+  app.get("/login", function(req, res) {
+    res.render("login");
+  });
+
+  // Load profile page
   app.get("/profile", isAuthenticated, function(req, res) {
     db.User.findOne({
       where: {
@@ -22,10 +32,6 @@ module.exports = function(app) {
         example: dbExample
       });
     });
-  });
-
-  app.get("/", function(req, res) {
-    res.render("signup");
   });
 
   // Render 404 page for any unmatched routes

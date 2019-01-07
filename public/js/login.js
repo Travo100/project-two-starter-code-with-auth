@@ -1,8 +1,8 @@
-$("#user-sign-up").on("submit", function(e) {
+$("#user-login").on("submit", function(e) {
   e.preventDefault();
   $.ajax({
     method: "POST",
-    url: "/api/signup",
+    url: "/api/login",
     data: {
       email: $("#email")
         .val()
