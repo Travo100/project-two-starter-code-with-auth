@@ -1,7 +1,7 @@
 {
-  "name": "node-handlebars-boilerplate",
+  "name": "node-handlebars-passport-boilerplate",
   "version": "1.0.0",
-  "description": "Project 2 Starter",
+  "description": "Project 2 Starter With Auth",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
