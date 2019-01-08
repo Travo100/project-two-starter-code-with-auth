@@ -3,7 +3,7 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 module.exports = function(app) {
   // Load signup page
   app.get("/", function(req, res) {
-    res.render("signup");
+    return res.render("signup");
   });
 
   // Load login page
@@ -24,7 +24,7 @@ module.exports = function(app) {
   });
 
   // Load example page and pass in an example by id
-  app.get("/example/:id", function(req, res) {
+  app.get("/example/:id", isAuthenticated, function(req, res) {
     db.Example.findOne({ where: { id: req.params.id } }).then(function(
       dbExample
     ) {
