@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "password",
-    "database": "exampledb",
+    "database": "bootcamp_outfitter_db",
     "host": "localhost",
     "dialect": "mysql"
   },
