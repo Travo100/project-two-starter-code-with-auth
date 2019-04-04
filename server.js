@@ -1,15 +1,15 @@
 require("dotenv").config();
-var express = require("express");
-var session = require("express-session");
-var exphbs = require("express-handlebars");
+const express = require("express");
+const session = require("express-session");
+const exphbs = require("express-handlebars");
 
-var db = require("./models");
+const db = require("./models");
 
-var app = express();
-var PORT = process.env.PORT || 3000;
+const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Requiring passport as we've configured it
-var passport = require("./config/passport");
+const passport = require("./config/passport");
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
@@ -40,7 +40,7 @@ app.set("view engine", "handlebars");
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
-var syncOptions = { force: true };
+const syncOptions = { force: true };
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
@@ -49,13 +49,9 @@ if (process.env.NODE_ENV === "test") {
 }
 
 // Starting the server, syncing our models ------------------------------------/
-db.sequelize.sync(syncOptions).then(function() {
-  app.listen(PORT, function() {
-    console.log(
-      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
-      PORT,
-      PORT
-    );
+db.sequelize.sync(syncOptions).then(() => {
+  app.listen(PORT, () => {
+    console.log(`App is running on PORT: ${PORT}. Go to http://localhost:${PORT}`);
   });
 });
 
