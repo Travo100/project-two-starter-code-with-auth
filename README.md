@@ -1,4 +1,4 @@
-# node-handlebars-passport-boilerplate
+# node-handlebars-passport-boilerplate 🍽️
 
 ## Introduction
 
@@ -27,3 +27,7 @@ SERVER_SECRET = 123456
 You can find a demo of this app here:
 
 https://node-passport-sequelize.herokuapp.com/
+
+## GitHub for this App
+
+https://github.com/Travo100/project-two-starter-code-with-auth
