@@ -7,6 +7,7 @@ const db = require("./models");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+const morgan = require("morgan");
 
 // Requiring passport as we've configured it
 const passport = require("./config/passport");
@@ -15,6 +16,9 @@ const passport = require("./config/passport");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
+
+// Morgan will any HTTP request to the terminal
+app.use(morgan("dev"));
 
 // We need to use sessions to keep track of our user's login status
 app.use(

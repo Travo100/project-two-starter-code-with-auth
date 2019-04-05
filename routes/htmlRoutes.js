@@ -2,14 +2,10 @@ const db = require("../models");
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 module.exports = app => {
   // Load signup page
-  app.get("/", (req, res) => {
-    return res.render("signup");
-  });
+  app.get("/", (req, res) => res.render("signup"));
 
   // Load login page
-  app.get("/login", (req, res) => {
-    res.render("login");
-  });
+  app.get("/login", (req, res) => res.render("login"));
 
   // Load profile page
   app.get("/profile", isAuthenticated, (req, res) => {
@@ -33,7 +29,5 @@ module.exports = app => {
   });
 
   // Render 404 page for any unmatched routes
-  app.get("*", function(req, res) {
-    res.render("404");
-  });
+  app.get("*", (req, res) => res.render("404"));
 };
