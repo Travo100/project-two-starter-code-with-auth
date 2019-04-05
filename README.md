@@ -21,3 +21,9 @@ SERVER_SECRET = 123456
 5. `npm install`
 
 6. `node server.js`
+
+## Demo of this App
+
+You can find a demo of this app here:
+
+https://node-passport-sequelize.herokuapp.com/
