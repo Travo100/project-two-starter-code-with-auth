@@ -51,7 +51,9 @@ if (process.env.NODE_ENV === "test") {
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(() => {
   app.listen(PORT, () => {
-    console.log(`App is running on PORT: ${PORT}. Go to http://localhost:${PORT}`);
+    console.log(
+      `App is running on PORT: ${PORT}. Go to http://localhost:${PORT}`
+    );
   });
 });
 

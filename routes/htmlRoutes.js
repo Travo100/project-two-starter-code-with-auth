@@ -1,6 +1,6 @@
 const db = require("../models");
 const isAuthenticated = require("../config/middleware/isAuthenticated");
-module.exports = (app) => {
+module.exports = app => {
   // Load signup page
   app.get("/", (req, res) => {
     return res.render("signup");
@@ -18,20 +18,18 @@ module.exports = (app) => {
         id: req.user.id
       },
       include: [db.Example]
-    }).then((dbUser) => {
+    }).then(dbUser => {
       res.render("profile", { user: dbUser });
     });
   });
 
   // Load example page and pass in an example by id
   app.get("/example/:id", isAuthenticated, (req, res) => {
-    db.Example
-      .findOne({ where: { id: req.params.id } })
-      .then(dbExample => {
-        res.render("example", {
-          example: dbExample
-        });
+    db.Example.findOne({ where: { id: req.params.id } }).then(dbExample => {
+      res.render("example", {
+        example: dbExample
       });
+    });
   });
 
   // Render 404 page for any unmatched routes

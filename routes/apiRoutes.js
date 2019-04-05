@@ -2,14 +2,14 @@ const db = require("../models");
 const passport = require("../config/passport");
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 
-module.exports = (app) => {
+module.exports = app => {
   // Get all examples
   app.get("/api/examples", isAuthenticated, (req, res) => {
     db.Example.findAll({
       where: {
         UserId: req.user.id
       }
-    }).then((dbExamples) => {
+    }).then(dbExamples => {
       res.json(dbExamples);
     });
   });
@@ -20,16 +20,14 @@ module.exports = (app) => {
       UserId: req.user.id,
       text: req.body.text,
       description: req.body.description
-    }).then((dbExample) => {
+    }).then(dbExample => {
       res.json(dbExample);
     });
   });
 
   // Delete an example by id
   app.delete("/api/examples/:id", isAuthenticated, (req, res) => {
-    db.Example.destroy({ where: { id: req.params.id } }).then((
-      dbExample
-    ) => {
+    db.Example.destroy({ where: { id: req.params.id } }).then(dbExample => {
       res.json(dbExample);
     });
   });
@@ -56,7 +54,7 @@ module.exports = (app) => {
       .then(() => {
         res.redirect(307, "/api/login");
       })
-      .catch((err) => {
+      .catch(err => {
         res.status(422).json(err.errors[0].message);
       });
   });
