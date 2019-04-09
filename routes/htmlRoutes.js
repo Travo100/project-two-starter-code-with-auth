@@ -23,7 +23,8 @@ module.exports = app => {
   app.get("/example/:id", isAuthenticated, (req, res) => {
     db.Example.findOne({ where: { id: req.params.id } }).then(dbExample => {
       res.render("example", {
-        example: dbExample
+        example: dbExample,
+        user: req.user
       });
     });
   });
