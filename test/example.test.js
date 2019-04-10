@@ -10,7 +10,7 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 chai.use(require("chai-as-promised"));
 
-let request;
+//let request;
 
 describe("GET /api/examples", function() {
   // Before each test begins, create a new request server for testing
@@ -28,38 +28,59 @@ describe("GET /api/examples", function() {
       email: "testuser@test.com",
       password: "myPassword"
     }).then(dbUser => {
-      db.Example.create({
-        text: "First Example",
-        description: "First Description",
-        UserId: dbUser.id
-      }).then(function() {
-        // Request the route that returns all examples
-        request.get("/api/examples").end(function(err, response) {
-          var responseStatus = response.status;
-          var responseBody = response.body;
+      db.Example.bulkCreate([
+        {
+          text: "First Example",
+          description: "First Description",
+          UserId: dbUser.id
+        },
+        {
+          text: "Second Example",
+          description: "Second Description",
+          UserId: dbUser.id
+        }
+      ]).then(function() {
+        var agent = chai.request.agent(server);
+        agent
+          .post("/api/login")
+          .send({ email: "testuser@test.com", password: "myPassword" })
+          .then(function(res) {
+            expect(res).to.have.cookie("connect.sid");
+            // Request the route that returns all examples
+            agent.get("/api/examples").end(function(err, response) {
+              var responseStatus = response.status;
+              var responseBody = response.body;
 
-          console.log(responseStatus);
-          console.log(responseBody);
-          // Run assertions on the response
+              console.log(responseStatus);
+              console.log(responseBody);
+              // Run assertions on the response
 
-          expect(err).to.be.null;
+              expect(err).to.be.null;
 
-          expect(responseStatus).to.equal(200);
+              expect(responseStatus).to.equal(200);
 
-          expect(responseBody)
-            .to.be.an("array")
-            .that.has.lengthOf(1);
+              expect(responseBody)
+                .to.be.an("array")
+                .that.has.lengthOf(2);
 
-          expect(responseBody[0])
-            .to.be.an("object")
-            .that.includes({
-              text: "First Example",
-              description: "First Description"
+              expect(responseBody[0])
+                .to.be.an("object")
+                .that.includes({
+                  text: "First Example",
+                  description: "First Description"
+                });
+
+              expect(responseBody[1])
+                .to.be.an("object")
+                .that.includes({
+                  text: "Second Example",
+                  description: "Second Description"
+                });
+
+              // The `done` function is used to end any asynchronous tests
+              done();
             });
-
-          // The `done` function is used to end any asynchronous tests
-          done();
-        });
+          });
       });
     });
   });

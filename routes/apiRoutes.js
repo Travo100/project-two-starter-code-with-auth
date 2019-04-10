@@ -5,7 +5,11 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 module.exports = app => {
   // Get all examples
   app.get("/api/examples", isAuthenticated, (req, res) => {
-    db.Example.findAll({}).then(dbExamples => {
+    db.Example.findAll({
+      where: {
+        UserId: req.user.id
+      }
+    }).then(dbExamples => {
       res.json(dbExamples);
     });
   });
